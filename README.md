@@ -1,4 +1,4 @@
-## Visual Computing Slides -- Transformations
+## Visual Computing Slides -- Quaternions
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 Part of the *Visual Computing* course given at [National University of Colombia](http://www.disi.unal.edu.co/) by [Jesus Felipe Chavarro Muñoz](https://github.com/jesusfchavarro).

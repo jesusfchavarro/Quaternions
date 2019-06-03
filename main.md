@@ -268,3 +268,43 @@ $\mathbf{d}$ which rotates from $\mathbf{a}$ to $\mathbf{b}$:
 
 Now we have a quaternion to represent the angular displacement from one orientation to another.
 
+V:
+
+## Quaternion Exponentiation
+
+- Quaternions can be exponentiated (raised to a power). This is denoted $\mathbf{q}^{t}$.
+- As $t$ varies from $0...1$, $\mathbf{q}^{t}$ varies from $[1,\ \mathbf{0}]...\mathbf{q}$. 
+- To compute a quaternion that represents one-third of the angular displacement represented by the quaternion $\mathbf{q}$, we would compute $\mathbf{q}^{1/3}$. 
+
+V:
+
+## Interpolation — aka “Slerp”
+
+Stands for **S**pherical **L**inear int**erp**olation. Slerp is a ternary operator, take the "starting" and "ending" orientation and a interpolation paramenter:
+
+$$slerp(\mathbf{q}\_{0},\mathbf{q}\_{1},t)$$
+
+This function will return an orientation that interpolates from $\mathbf{q}\_{0}$ and $\mathbf{q}\_{1}$.
+
+V:
+
+If we were interpolating between two scalar values $a_{0}$ and $a_{1}$:
+
+\\begin{aligned}
+\Delta a &= a_{1} - a_{0} \\\\
+lerp(a_{0},a_{1},t) &= a_{0} + t\Delta a 
+\\end{aligned}
+
+with the quarterion difference and exponentiation:
+
+\\begin{aligned}
+\Delta \mathbf{q} &= \mathbf{q}\_{0}^{-1}\mathbf{q}\_{1} \\\\
+slerp(a_{0},a_{1},t) &= \mathbf{q}\_{0}\Delta\mathbf{q}^{t} 
+\\end{aligned}
+
+H:
+
+## References
+* [Math primer for graphics and game development](https://tfetimes.com/wp-content/uploads/2015/04/F.Dunn-I.Parberry-3D-Math-Primer-for-Graphics-and-Game-Development.pdf)
+* [Quaternions and spatial rotation - Wikipedia](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation)
+* [Visualizing quaternions](https://eater.net/quaternions)
