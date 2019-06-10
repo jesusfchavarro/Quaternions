@@ -28,9 +28,33 @@ H:
 ## Index
 
   1. Complex numbers
-    - Definition
-    - Geometric representation
-    - Rotation
+	- Definition
+	- Operation
+	- Conjugate
+	- Magnitude
+	- Rotation
+	- Matrix representation
+
+V:
+
+2. Quaternions
+	- Definition
+	- Magnitude
+	- Conjugate and inverse
+	- Quaternions as an Axis-Angle Pair
+	- Negation
+	- Identity
+	- Multiplication
+	- 3D rotation
+
+V: 
+
+3. Geometric interpretation
+4. Interpolations
+	- "Difference"
+	- Exponentiation
+	- Slerp
+	- Squad
 
 H: 
 
@@ -44,7 +68,7 @@ The set of complex numbers “live” in a 2D plane.
 </div>
 V: 
 
-## Operations
+### Operations
 #### sum
 
 $$ (a+bi) + (c+di) = (a+c) + (b+d)i$$
@@ -59,7 +83,7 @@ $$ (a+bi) + (c+di) = (a+c) + (b+d)i$$
 
 V:
 
-## Conjugate
+### Conjugate
 
 <img src="fig/fig2.svg" alt="Complex plane" width="33%" style="float: left; background: white; margin-right:25px;">
 
@@ -108,7 +132,7 @@ $$P = \begin{pmatrix}a&-b\\\\b&a\end{pmatrix}$$
 
 H:
 
-## Quaternions - no complex
+## Quaternions
 
 A quaternion contains a scalar component and a 3D vector component. We usually refer to the sca-
 lar component as $w$.
@@ -117,7 +141,7 @@ $$ [w\ \mathbf{v}] = [ w \ (x\ y\ z)] = (x\ y\ z\ w)$$
 
 V:
 
-## Quaternions - complex
+### Quaternions - complex
 
 Quaternions extend the complex number system by having three imaginary numbers, $i$, $j$, and
 $k$, which are related as follows:
@@ -143,7 +167,7 @@ V:
 
 V:
 
-## Conjugate and inverse
+### Conjugate and inverse
 
 The conjugate of a quaternion, denoted $\mathbf{q}^{*}$ , is obtained by negating the vector portion of the quaternion: 
 
@@ -163,7 +187,7 @@ When we multiply a quaternion q by its inverse $\mathbf{q}^{-1}$ , we get the id
 
 V:
 
-## Quaternions as an Axis-Angle Pair
+### Quaternions as an Axis-Angle Pair
 
 Let us define the vector $\mathbf{n}$ to be the axis of rotation and the scalar $\theta$ to be the amount of rotation about this axis.
 
@@ -188,7 +212,7 @@ $$ \mathbf{I} = [1, \mathbf{0}] $$ <!-- .element: class="fragment" data-fragment
 
 V:
 
-## Quaternion Multiplication
+### Quaternion Multiplication
 
 Quaternions can be multiplied according to their complex number interpretation.
 
@@ -202,7 +226,7 @@ $$ = [ w_{1} w_{2} - \mathbf{v}\_{1} \cdot \mathbf{v}\_{2} \ \ \ w_{1}\mathbf{v}
 
 V: 
 
-## 3D rotation
+### 3D rotation
 
 Let us “extend” a standard 3D $(x\ y\ z)$ point into quaternion space:
 
@@ -231,13 +255,7 @@ $$\mathbf{p}^{´} = \mathbf{qpq}^{-1}$$
 
 H:
 
-<h2>
-Geometric interpretation
-</h2>
-
-V:
-
-## Order interpretation
+## Geometric interpretation
 
 Given the multiplication $ij = k$, we could think in 2 ways:
 
@@ -252,9 +270,13 @@ respectively:
 
 V: 
 
+H:
+
+## Difference and interpolations
+
 V:
 
-## Quaternion “Difference”
+### Quaternion “Difference”
 
 For given orientations $\mathbf{a}$ and $\mathbf{b}$, we can compute the angular displacement
 $\mathbf{d}$ which rotates from $\mathbf{a}$ to $\mathbf{b}$:
@@ -270,7 +292,7 @@ Now we have a quaternion to represent the angular displacement from one orientat
 
 V:
 
-## Quaternion Exponentiation
+### Quaternion Exponentiation
 
 - Quaternions can be exponentiated (raised to a power). This is denoted $\mathbf{q}^{t}$.
 - As $t$ varies from $0...1$, $\mathbf{q}^{t}$ varies from $[1,\ \mathbf{0}]...\mathbf{q}$. 
@@ -278,7 +300,7 @@ V:
 
 V:
 
-## Interpolation — aka “Slerp”
+### Interpolation — aka “Slerp”
 
 Stands for **S**pherical **L**inear int**erp**olation. Slerp is a ternary operator, take the "starting" and "ending" orientation and a interpolation paramenter:
 
@@ -301,6 +323,36 @@ with the quarterion difference and exponentiation:
 \Delta \mathbf{q} &= \mathbf{q}\_{0}^{-1}\mathbf{q}\_{1} \\\\
 slerp(a_{0},a_{1},t) &= \mathbf{q}\_{0}\Delta\mathbf{q}^{t} 
 \\end{aligned}
+
+V:
+
+### Quaternion Splines — aka “Squad”
+
+Slerp provides interpolation between two orientations, but with a path with more than 3 points Slerp make discontinuities. 
+
+In this case we use a Squad interpolation, which stand for **s**pherical and **quad**rangle, to thace our a path between control points.
+
+V:
+
+Let our “control points” be defined by a sequence of quaternions:
+
+$$\mathbf{q\_{1},q\_{2},q\_{3},...,q\_{n-2},q\_{n-1},q\_{n}}$$
+
+We will also define the “helper” quaternion $s_{i}$ , which can be thought of as intermediate control points:
+
+$$ s_{i} = \exp(-\frac{\log(\mathbf{q}\_{i+1}\mathbf{q}\_{i}^{-1})+\log(\mathbf{q}\_{i-1}\mathbf{q}\_{i}^{-1})}{4})\mathbf{q}\_{i}$$
+
+V:
+
+We will also define an interpolation parameter $h$. As $h$ varies from $0...1$, squad traces out the segment of the curve between $\mathbf{q}\_{i}$ and $\mathbf{q}\_{i+1}$ :
+
+
+$$squad(\mathbf{q}\_{i},\mathbf{q}\_{i+1},\mathbf{s}\_{i},\mathbf{s}\_{i+1},h) = $$
+$$slerp(slerp(\mathbf{q}\_{i},\mathbf{q}\_{i+1},h),slerp(\mathbf{s}\_{i},\mathbf{s}\_{i+1},h),2h(1-h))$$
+
+V:
+
+<iframe width="1120" height="530" src="https://www.youtube.com/embed/_AjirMJx3Ds" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 H:
 
