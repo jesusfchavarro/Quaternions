@@ -152,7 +152,7 @@ $$ij=k, ji=-k$$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 $$jk=i, kj=-i$$ <!-- .element: class="fragment" data-fragment-index="3" -->
 
-$$ki=j, ik=-i$$ <!-- .element: class="fragment" data-fragment-index="4" -->
+$$ki=j, ik=--j$$ <!-- .element: class="fragment" data-fragment-index="4" -->
 
 V:
 
@@ -321,7 +321,7 @@ with the quarterion difference and exponentiation:
 
 \\begin{aligned}
 \Delta \mathbf{q} &= \mathbf{q}\_{0}^{-1}\mathbf{q}\_{1} \\\\
-slerp(a_{0},a_{1},t) &= \mathbf{q}\_{0}\Delta\mathbf{q}^{t} 
+slerp(q_{0},q_{1},t) &= \mathbf{q}\_{0}\Delta\mathbf{q}^{t} 
 \\end{aligned}
 
 V:
